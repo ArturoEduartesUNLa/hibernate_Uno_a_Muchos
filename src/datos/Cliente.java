@@ -7,6 +7,12 @@ import java.util.Set;
 public class Cliente {
 	private long idCliente;
 	private String apellido;
+	private String nombre;
+	private long dni;
+	private LocalDate fechaDeNacimiento;
+	private boolean baja;
+	
+	private Set<Prestamo> prestamos;
 
 	public Cliente(String apellido, String nombre, long dni, LocalDate fechaDeNacimiento, boolean baja,
 			Set<Prestamo> prestamos) {
@@ -79,14 +85,6 @@ public class Cliente {
 		this.prestamos = prestamos;
 	}
 
-	private String nombre;
-	private long dni;
-	private LocalDate fechaDeNacimiento;
-	private boolean baja;
-	private Set<Prestamo> prestamos;
-
-	
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(apellido, baja, dni, fechaDeNacimiento, idCliente, nombre, prestamos);
@@ -107,8 +105,7 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Cliente [idCliente=" + idCliente + ", apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni
-				+ ", fechaDeNacimiento=" + fechaDeNacimiento + ", baja=" + baja + ",\n prestamos=" + prestamos + "]\n";
+				+ ", fechaDeNacimiento=" + fechaDeNacimiento + ", baja=" + baja + "]\n"; // + ",\n prestamos=" + prestamos + "]\n";
 	}
 
-	
 }

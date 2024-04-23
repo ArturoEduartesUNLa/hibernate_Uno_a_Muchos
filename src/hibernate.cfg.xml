@@ -8,7 +8,7 @@
 		<property name="connection.pool_size">1</property>
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 		<!-- en true muestra hql en consola-->
-		<property name="show_sql">false</property>
+		<property name="show_sql">true</property>
 		<!-- Mapeo Entidades -->
 		<mapping resource="mapeo/cliente.hbm.xml"/>
 		<mapping resource="mapeo/prestamo.hbm.xml"/>
