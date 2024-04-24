@@ -68,7 +68,6 @@ public class PrestamoDao {
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
-			// TODO: handle exception
 		}
 		finally {
 			session.close();
