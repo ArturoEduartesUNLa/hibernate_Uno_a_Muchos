@@ -6,8 +6,8 @@
 			<generator class="identity"/>
 		</id>
 		<property column="fecha" name="fecha" type="LocalDate"/>
-		<property column="monto" name="monto" type="float"/>
-		<property column="interes" name="interes" type="float"/>
+		<property column="monto" name="monto" type="double"/>
+		<property column="interes" name="interes" type="double"/>
 		<property column="cantCuotas" name="cantCuotas" type="int"/>
 		
 		<many-to-one name="cliente" class="datos.Cliente" column="idCliente" not-null="true"/>

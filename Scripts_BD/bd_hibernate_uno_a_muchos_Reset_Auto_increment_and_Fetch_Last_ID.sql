@@ -1,18 +1,18 @@
-DELETE FROM `bd-hibernate-uno-a-uno`.cliente  c WHERE c.idCliente > 1;
+DELETE FROM `bd-hibernate-uno-a-muchos`.cliente  c WHERE c.idCliente > 1;
 
 /* reset counter of autoincremento to last inserted */ 
-ALTER TABLE `bd-hibernate-uno-a-uno`.cliente AUTO_INCREMENT = 0;
+ALTER TABLE `bd-hibernate-uno-a-muchos`.cliente AUTO_INCREMENT = 0;
 
 /* Deleted and again create AUTO-INCREMENT field
  
-ALTER TABLE `bd-hibernate-una-entidad`.cliente DROP idCliente;
-ALTER TABLE `bd-hibernate-una-entidad`.cliente 
+ALTER TABLE `bd-hibernate-uno-a-muchos`.cliente DROP idCliente;
+ALTER TABLE `bd-hibernate-uno-a-muchos`.cliente 
 ADD idCliente INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST,
 ADD PRIMARY KEY (idCliente);
 
 */
 
- # Line comment with "#" SELECT * FROM `bd-hibernate-una-entidad`.cliente WHERE idCliente = LAST_INSERT_ID();
+ # Line comment with "#" SELECT * FROM `bd-hibernate-uno-a-muchos`.cliente WHERE idCliente = LAST_INSERT_ID();
 
 -- line comment with "-- " return last record inserted in table
 /* Multiline comment with "/*" 
@@ -20,5 +20,5 @@ ADD PRIMARY KEY (idCliente);
 */
 
 /* return last record inserted in table */
-SELECT * from `bd-hibernate-uno-a-uno`.cliente ORDER BY idCliente DESC LIMIT 1;
+SELECT * from `bd-hibernate-uno-a-muchos`.cliente ORDER BY idCliente DESC LIMIT 1;
 

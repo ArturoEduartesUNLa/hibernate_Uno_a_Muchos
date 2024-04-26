@@ -12,7 +12,7 @@
 	    <property column="baja" name="baja" type="boolean"/>
 
 	    
-	    <set name="prestamos" table="prestamo" order-by="idPrestamo asc" inverse="true" lazy="true" fetch="select">
+	    <set name="prestamos" table="prestamo" order-by="idPrestamo asc" inverse="true" cascade="save-update" lazy="true" fetch="select">
 	        <key column="idCliente" not-null="true"  />
 	        <one-to-many class="datos.Prestamo" />
 	    </set>
