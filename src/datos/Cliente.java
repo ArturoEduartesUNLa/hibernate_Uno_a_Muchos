@@ -8,13 +8,13 @@ public class Cliente {
 	private long idCliente;
 	private String apellido;
 	private String nombre;
-	private long dni;
+	private int dni;
 	private LocalDate fechaDeNacimiento;
 	private boolean baja;
-	
+
 	private Set<Prestamo> prestamos;
 
-	public Cliente(String apellido, String nombre, long dni, LocalDate fechaDeNacimiento, boolean baja,
+	public Cliente(String apellido, String nombre, int dni, LocalDate fechaDeNacimiento, boolean baja,
 			Set<Prestamo> prestamos) {
 		super();
 		this.apellido = apellido;
@@ -22,6 +22,7 @@ public class Cliente {
 		this.dni = dni;
 		this.fechaDeNacimiento = fechaDeNacimiento;
 		this.baja = baja;
+
 		this.prestamos = prestamos;
 	}
 
@@ -53,11 +54,11 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public long getDni() {
+	public int getDni() {
 		return dni;
 	}
 
-	public void setDni(long dni) {
+	public void setDni(int dni) {
 		this.dni = dni;
 	}
 
@@ -82,12 +83,17 @@ public class Cliente {
 	}
 
 	public void setPrestamos(Set<Prestamo> prestamos) {
+		// forma alternativa prestamos.forEach(prestamo -> prestamo.setCliente(this));
+
+		if (prestamos != null)
+			prestamos.forEach(t -> t.setCliente(this));
+
 		this.prestamos = prestamos;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellido, baja, dni, fechaDeNacimiento, idCliente, nombre, prestamos);
+		return Objects.hash(apellido, baja, dni, fechaDeNacimiento, idCliente, nombre);
 	}
 
 	@Override
@@ -99,13 +105,14 @@ public class Cliente {
 		Cliente other = (Cliente) obj;
 		return Objects.equals(apellido, other.apellido) && baja == other.baja && dni == other.dni
 				&& Objects.equals(fechaDeNacimiento, other.fechaDeNacimiento) && idCliente == other.idCliente
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(prestamos, other.prestamos);
+				&& Objects.equals(nombre, other.nombre);
 	}
 
 	@Override
 	public String toString() {
 		return "Cliente [idCliente=" + idCliente + ", apellido=" + apellido + ", nombre=" + nombre + ", dni=" + dni
-				+ ", fechaDeNacimiento=" + fechaDeNacimiento + ", baja=" + baja + "]\n"; // + ",\n prestamos=" + prestamos + "]\n";
+				+ ", fechaDeNacimiento=" + fechaDeNacimiento + ", baja=" + baja + "]\n"; // "\n prestamos=" + prestamos
+																							// + "]\n";
 	}
 
 }

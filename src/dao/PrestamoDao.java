@@ -14,9 +14,12 @@ import datos.Prestamo;
  */
 public class PrestamoDao {
 	private static Session session;
-	private Transaction tx;
+	private static Transaction tx;
 
-	private void iniciaOperacion() throws HibernateException {
+	private void PrestamoDao() {
+	}
+
+	private static void iniciaOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
 		tx = session.beginTransaction();
 	}
@@ -60,21 +63,20 @@ public class PrestamoDao {
 
 	public void eliminar(Prestamo p) {
 		try {
-			
+
 			iniciaOperacion();
 			session.delete(p);
 			tx.commit();
-			
+
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
-			// TODO: handle exception
-		}
-		finally {
+		} finally {
 			session.close();
 		}
-		
+
 	}
+
 	public Prestamo traerSinCliente(long idPrestamo) {
 		Prestamo prestamo = null;
 		try {
@@ -102,7 +104,8 @@ public class PrestamoDao {
 	public List<Prestamo> traer(Cliente c) {
 		List<Prestamo> lista = null;
 		try {
-			String hql = "from Prestamo p inner join fetch p.cliente c where " + "c.IdCliente = " + c.getIdCliente();
+			iniciaOperacion();
+			String hql = "from Prestamo p inner join fetch p.cliente c where " + "c.idCliente = " + c.getIdCliente();
 			lista = session.createQuery(hql, Prestamo.class).list();
 		} finally {
 			session.close();

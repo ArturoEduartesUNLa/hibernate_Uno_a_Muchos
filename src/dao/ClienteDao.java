@@ -11,9 +11,9 @@ import datos.Cliente;
 
 public class ClienteDao {
 	private static Session session;
-	private Transaction tx;
+	private static Transaction tx;
 
-	private void iniciaOperacion() throws HibernateException {
+	private static void iniciaOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
 		tx = session.beginTransaction();
 	}
@@ -62,7 +62,6 @@ public class ClienteDao {
 			tx.commit();
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
-			throw he;
 		} finally {
 			session.close();
 		}
@@ -98,8 +97,7 @@ public class ClienteDao {
 		List<Cliente> lista = new ArrayList<Cliente>();
 		try {
 			iniciaOperacion();
-			lista = session.createQuery("from Cliente c order by c.idCliente asc", Cliente.class)
-					.list();
+			lista = session.createQuery("from Cliente c order by c.idCliente asc", Cliente.class).list();
 		} finally {
 			session.close();
 		}
@@ -111,9 +109,7 @@ public class ClienteDao {
 		try {
 			iniciaOperacion();
 			String hql = "from Cliente c inner join fetch c.contacto where c.IdCliente = :IdCliente";
-			c = session.createQuery(hql, Cliente.class)
-				.setParameter("idCliente", idCliente)
-				.uniqueResult();
+			c = session.createQuery(hql, Cliente.class).setParameter("idCliente", idCliente).uniqueResult();
 
 		} finally {
 			session.close();
