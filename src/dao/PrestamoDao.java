@@ -104,7 +104,8 @@ public class PrestamoDao {
 	public List<Prestamo> traer(Cliente c) {
 		List<Prestamo> lista = null;
 		try {
-			String hql = "from Prestamo p inner join fetch p.cliente c where " + "c.IdCliente = " + c.getIdCliente();
+			iniciaOperacion();
+			String hql = "from Prestamo p inner join fetch p.cliente c where " + "c.idCliente = " + c.getIdCliente();
 			lista = session.createQuery(hql, Prestamo.class).list();
 		} finally {
 			session.close();
