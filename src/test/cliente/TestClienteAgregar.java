@@ -11,8 +11,14 @@ import negocio.ClienteABM;
 
 public class TestClienteAgregar {
 
+	/*
+	 * COMPLETE
+	 * 
+	 */
 	public static void main(String[] args) {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+
+		boolean printTest = printTest();
 
 		long id;
 		/* sin Prestamos */
@@ -33,10 +39,10 @@ public class TestClienteAgregar {
 
 		Set<Prestamo> setP1 = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP1);
-		
+
 		Set<Prestamo> setP2 = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP2);
-		
+
 		Set<Prestamo> setP3 = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP3);
 
@@ -71,5 +77,15 @@ public class TestClienteAgregar {
 		sPrestamos.add(new Prestamo(LocalDate.now(), 125.00, 25.00, 1, null));
 		sPrestamos.add(new Prestamo(LocalDate.now(), 125.00, 25.00, 1, null));
 		sPrestamos.add(new Prestamo(LocalDate.now(), 125.00, 25.00, 1, null));
+	}
+
+	private static boolean printTest() {
+		boolean result = false;
+		try {
+			result = TestCIienteInt.class.getDeclaredField("printTest") != null;
+		} catch (NoSuchFieldException e) {
+		} catch (SecurityException e) {
+		}
+		return result;
 	}
 }

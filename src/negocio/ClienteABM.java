@@ -72,7 +72,6 @@ public class ClienteABM {
 				try {
 					PrestamoABM.getInstance().eliminar(t.getIdPrestamo());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
@@ -89,6 +88,7 @@ public class ClienteABM {
 
 		// si existen eliminar los prestamos asociados
 		c.getPrestamos().clear();
+		modificar(c);
 		eliminar(idCliente);
 
 		if (traer(idCliente) == null)

@@ -17,7 +17,6 @@ public class PrestamoDao {
 	private static Transaction tx;
 
 	private void PrestamoDao() {
-		// TODO document why this method is empty
 	}
 
 	private static void iniciaOperacion() throws HibernateException {

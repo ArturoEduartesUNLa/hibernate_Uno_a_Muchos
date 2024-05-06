@@ -20,7 +20,7 @@
 		<property name="format_sql">true</property>
 		
 		<!-- Re-create the database schema on startup -->
-		<property name="hbm2ddl.auto">update</property>
+		<property name="hbm2ddl.auto">create</property>
 		
 		<!-- Mapeo Entidades -->
 		<mapping resource="mapeo/cliente.hbm.xml"/>

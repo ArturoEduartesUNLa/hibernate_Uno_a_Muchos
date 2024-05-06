@@ -87,7 +87,7 @@ public class Cliente {
 
 		if (prestamos != null)
 			prestamos.forEach(t -> t.setCliente(this));
-		
+
 		this.prestamos = prestamos;
 	}
 
