@@ -2,13 +2,26 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost/bd-hibernate-uno-a-muchos</property>
+		<property name="connection.url">jdbc:mysql://localhost/bd_hibernate_uno_a_muchos_1?createDatabaseIfNotExist=true</property>
 		<property name="connection.username">myuser</property>
-		<property name="connection.password"></property>
+		<property name="connection.password">
+		</property>
 		<property name="connection.pool_size">1</property>
-		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- <property name="dialect">org.hibernate.dialect.MySQLDialect</property> -->
+		
+		<!-- Crear la base de datos usando el esquema de tipo InnoDB -->
+		<property name="dialect">org.hibernate.dialect.MySQL55Dialect</property>
+		
 		<!-- en true muestra hql en consola-->
-		<property name="show_sql">true</property>
+		<property name="show_sql">false</property>
+		
+		<!-- Format the generated Sql -->
+		<property name="format_sql">true</property>
+		
+		<!-- Re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property>
+		
 		<!-- Mapeo Entidades -->
 		<mapping resource="mapeo/cliente.hbm.xml"/>
 		<mapping resource="mapeo/prestamo.hbm.xml"/>

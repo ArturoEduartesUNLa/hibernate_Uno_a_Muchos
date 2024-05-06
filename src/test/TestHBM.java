@@ -21,6 +21,9 @@ public class TestHBM {
 		session.beginTransaction();
 		session.close();
 
+		// generar scheme database
+		HibernateUtil.exportaFileSchemaSQL();
+
 		System.out.println("Ok connection");
 
 	}

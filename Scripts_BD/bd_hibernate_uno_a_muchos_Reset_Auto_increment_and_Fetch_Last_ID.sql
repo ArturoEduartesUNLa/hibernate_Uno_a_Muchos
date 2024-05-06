@@ -1,4 +1,5 @@
-DELETE FROM `bd-hibernate-uno-a-muchos`.cliente  c WHERE c.idCliente > 1;
+DELETE FROM `bd-hibernate-uno-a-muchos`.prestamo  c WHERE c.idCliente > 2;
+DELETE FROM `bd-hibernate-uno-a-muchos`.cliente  c WHERE c.idCliente > 2;
 
 /* reset counter of autoincremento to last inserted */ 
 ALTER TABLE `bd-hibernate-uno-a-muchos`.cliente AUTO_INCREMENT = 0;
@@ -20,5 +21,5 @@ ADD PRIMARY KEY (idCliente);
 */
 
 /* return last record inserted in table */
-SELECT * from `bd-hibernate-uno-a-muchos`.cliente ORDER BY idCliente DESC LIMIT 1;
+/*SELECT * from `bd-hibernate-uno-a-muchos`.cliente ORDER BY idCliente DESC LIMIT 1;*/
 

@@ -14,9 +14,13 @@ import datos.Prestamo;
  */
 public class PrestamoDao {
 	private static Session session;
-	private Transaction tx;
+	private static Transaction tx;
 
-	private void iniciaOperacion() throws HibernateException {
+	private void PrestamoDao() {
+		// TODO document why this method is empty
+	}
+
+	private static void iniciaOperacion() throws HibernateException {
 		session = HibernateUtil.getSessionFactory().openSession();
 		tx = session.beginTransaction();
 	}
@@ -60,20 +64,20 @@ public class PrestamoDao {
 
 	public void eliminar(Prestamo p) {
 		try {
-			
+
 			iniciaOperacion();
 			session.delete(p);
 			tx.commit();
-			
+
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
-		}
-		finally {
+		} finally {
 			session.close();
 		}
-		
+
 	}
+
 	public Prestamo traerSinCliente(long idPrestamo) {
 		Prestamo prestamo = null;
 		try {
