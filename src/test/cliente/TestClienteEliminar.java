@@ -15,26 +15,42 @@ public class TestClienteEliminar {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
 		boolean printTest = printTest();
-
+		Cliente modif = null;
+		
 		// Eliminar Cliente sin prestamos
 		System.out.println("UC 3_1 - eliminar Cliente sin Prestamos");
 
-		Cliente modif = ClienteABM.getInstance().traer(1L);
-		System.out.println(modif + " " + modif.getPrestamos());
 		try {
+			modif = ClienteABM.getInstance().traer(1L);
+			System.out.println(modif + " " + modif.getPrestamos());
 			ClienteABM.getInstance().eliminar(1L);
 		} catch (Exception e) {
+			System.err.println("Ejecutar TestClienteInt para previamente crear registros en DB");
 			e.printStackTrace();
 		}
 
-		// Eliminar Cliente con prestamos
+		/*
+		 * Eliminar Cliente con prestamos lanza excepcion por restriccion not-null =
+		 * true en mapeo de Prestamo para evitar el error poner en false o eliminar
+		 * modificador not-null
+		 */
 		System.out.println("UC 3_2 - eliminar asociacion Cliente con prestamos (set cliente with null in prestamos)");
 		modif = ClienteABM.getInstance().traer(3L);
 		System.out.println(modif + " " + modif.getPrestamos());
 		try {
 			modif.getPrestamos().forEach(p -> p.setCliente(null));
 			ClienteABM.getInstance().modificar(modif);
-			ClienteABM.getInstance().eliminar(3L);
+			ClienteABM.getInstance().eliminar(modif.getIdCliente());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/*
+		 * Eliminar Cliente y prestamos de forma directa al eliminar un cliente
+		 * modificador on-delete=cascade en mapeo del atributo del tipo SET en Cliente
+		 */
+		try {
+			ClienteABM.getInstance().eliminar(modif.getIdCliente());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,12 +75,12 @@ public class TestClienteEliminar {
 		// Eliminar Cliente Y prestamos asociados
 		System.out.println("UC 3_4 - eliminar Cliente junto con sus prestamos");
 
-		modif = ClienteABM.getInstance().traer(3L);
+		modif = ClienteABM.getInstance().traer(4L);
 
 		if (!printTest)
 			System.out.println(modif + " " + modif.getPrestamos());
 		try {
-			boolean resultado = ClienteABM.getInstance().eliminarClienteYPrestamos(3L);
+			boolean resultado = ClienteABM.getInstance().eliminarClienteYPrestamos(modif.getIdCliente());
 			if (resultado)
 				System.out.println("se eliminó: " + modif + " " + modif.getPrestamos());
 

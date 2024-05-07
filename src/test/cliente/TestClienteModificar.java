@@ -18,21 +18,21 @@ public class TestClienteModificar {
 		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
 		boolean printTest = printTest();
+		Cliente modif = null;
 
 		System.out.println("UC 2_1 -modificar apellido Cliente");
 
 		System.out.println(ClienteABM.getInstance().traer(2L)); // mostrar clientes
 
-		Cliente modif = ClienteABM.getInstance().traer(2L);
-
-		if (modif != null) {
-			modif.setApellido("Lewis Carroll");
-		}
-
 		try {
+			modif = ClienteABM.getInstance().traer(2L);
+			if (modif != null) {
+				modif.setApellido("Lewis Carroll");
+			}
 			ClienteABM.getInstance().modificar(modif);
 			System.out.println(ClienteABM.getInstance().traer(2L));
 		} catch (Exception e) {
+			System.err.println("Ejecutar TestClienteInt para previamente crear registros en DB");
 			e.printStackTrace();
 		}
 
@@ -60,11 +60,6 @@ public class TestClienteModificar {
 			e.printStackTrace();
 		}
 
-		/*
-		 * COMMENT How using constants or not defined variables in java SAMPLE #ifdef
-		 * var run code
-		 * 
-		 */
 		if (!printTest)
 			ClienteABM.getInstance().traer().forEach(t -> System.out.println(t + " " + t.getPrestamos()));
 	}
