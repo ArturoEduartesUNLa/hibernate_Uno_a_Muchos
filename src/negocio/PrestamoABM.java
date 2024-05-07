@@ -33,9 +33,9 @@ public class PrestamoABM {
 	public Prestamo traer(long idPrestamo) {
 		return dao.traer(idPrestamo);
 	}
-	
+
 	public List<Prestamo> traer(Cliente c) {
-		return dao.traer(c);	
+		return dao.traer(c);
 	}
 
 	public void eliminar(long idPrestamo) throws Exception {

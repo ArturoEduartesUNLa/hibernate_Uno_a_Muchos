@@ -11,8 +11,8 @@
 	    <property column="fechaDeNacimiento" name="fechaDeNacimiento" type="LocalDate"/>
 	    <property column="baja" name="baja" type="boolean"/>
 
-	    <set name="prestamos" order-by="idPrestamo asc" inverse="true" cascade="save-update,delete" lazy="true" fetch="select">
-	        <key column="idCliente" not-null ="true"/>
+	    <set name="prestamos" order-by="idPrestamo asc" inverse="true" cascade="save-update" lazy="true" fetch="select">
+	        <key column="idCliente" not-null ="true" on-delete="cascade"/>
 	        <one-to-many class="datos.Prestamo" />
 	    </set>
 	</class>    

@@ -63,18 +63,15 @@ public class PrestamoDao {
 
 	public void eliminar(Prestamo p) {
 		try {
-
 			iniciaOperacion();
 			session.delete(p);
 			tx.commit();
-
 		} catch (HibernateException he) {
 			manejaExcepcion(he);
 			throw he;
 		} finally {
 			session.close();
 		}
-
 	}
 
 	public Prestamo traerSinCliente(long idPrestamo) {
@@ -92,8 +89,12 @@ public class PrestamoDao {
 		Prestamo prestamo = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Prestamo p inner join fetch p.cliente c where " + "p.idPrestamo = " + idPrestamo;
-			prestamo = session.createQuery(hql, Prestamo.class).uniqueResult();
+			// String hql = "from Prestamo p inner join fetch p.cliente c where " +
+			// "p.idPrestamo = " + idPrestamo; // forma alternativa aunque es posible SQL
+			// Injection
+
+			String hql = "from Prestamo p inner join fetch p.cliente c where p.idPrestamo = :IDPrestamo";
+			prestamo = session.createQuery(hql, Prestamo.class).setParameter("IDPrestamo", idPrestamo).uniqueResult();
 		} finally {
 			session.close();
 		}
@@ -105,8 +106,8 @@ public class PrestamoDao {
 		List<Prestamo> lista = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Prestamo p inner join fetch p.cliente c where " + "c.idCliente = " + c.getIdCliente();
-			lista = session.createQuery(hql, Prestamo.class).list();
+			String hql = "from Prestamo p inner join fetch p.cliente c where c.idCliente = :IDCliente";
+			lista = session.createQuery(hql, Prestamo.class).setParameter("IDCliente", c.getIdCliente()).list();
 		} finally {
 			session.close();
 		}
