@@ -77,7 +77,6 @@ public class Prestamo {
 
 	@Override
 	public int hashCode() {
-
 		return Objects.hash(cantCuotas, fecha, uuid, idPrestamo, interes, monto);
 	}
 

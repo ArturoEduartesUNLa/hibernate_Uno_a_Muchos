@@ -38,11 +38,11 @@ public class TestClienteModificar {
 
 		// modificar un prestamo
 		System.out.println("UC 2_2 - modificar Prestamo si existe en Cliente");
-		System.out.println(ClienteABM.getInstance().traer(modif.getIdCliente()).getPrestamos());
+		System.out.println(ClienteABM.getInstance().traerClienteYPrestamo(modif.getIdCliente()).getPrestamos());
 
 		// consultar si este cliente contiene este prestamo
 		Prestamo p = PrestamoABM.getInstance().traer(1L);
-		Set<Prestamo> s = ClienteABM.getInstance().traer(modif.getIdCliente()).getPrestamos();
+		Set<Prestamo> s = ClienteABM.getInstance().traerClienteYPrestamo(modif.getIdCliente()).getPrestamos();
 
 		if (s.contains(p)) // si existe prestamo en cliente
 		{

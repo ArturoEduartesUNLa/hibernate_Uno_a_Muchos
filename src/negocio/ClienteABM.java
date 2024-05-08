@@ -37,6 +37,10 @@ public class ClienteABM {
 		return dao.traer(idCliente);
 	}
 
+	public Cliente traerClienteYPrestamo(long idCliente) {
+		return dao.traerClienteYPrestamos(idCliente);
+	}
+
 	public List<Cliente> traer() {
 		return dao.traer();
 	}
@@ -48,7 +52,13 @@ public class ClienteABM {
 			throw new Exception("Existe DNI: " + dni);
 		}
 
-		return dao.agregar(new Cliente(apellido, nombre, dni, fechaDeNacimiento, baja, prestamos));
+		Cliente c = traer(dao.agregar(new Cliente(apellido, nombre, dni, fechaDeNacimiento, baja, null)));
+		if (prestamos != null) {
+			prestamos.forEach(t -> t.setCliente(c));
+			c.setPrestamos(prestamos);
+			modificar(c);
+		}
+		return c.getIdCliente();
 	}
 
 	public void eliminar(long idCliente) throws Exception {
@@ -60,7 +70,7 @@ public class ClienteABM {
 	}
 
 	public void eliminarPrestamosAsociados(long idCliente) throws Exception {
-		Cliente c = traer(idCliente);
+		Cliente c = traerClienteYPrestamo(idCliente);
 		if (c == null) {
 			throw new Exception("Id no existe en BD: " + idCliente);
 		}
@@ -81,7 +91,7 @@ public class ClienteABM {
 
 	public boolean eliminarClienteYPrestamos(long idCliente) throws Exception {
 		boolean resultado = false;
-		Cliente c = traer(idCliente);
+		Cliente c = traerClienteYPrestamo(idCliente);
 		if (c == null) {
 			throw new Exception("Id no existe en BD: " + idCliente);
 		}

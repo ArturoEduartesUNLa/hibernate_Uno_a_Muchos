@@ -45,8 +45,10 @@ public class HibernateUtil {
 			schemaExport.setFormat(true);
 			schemaExport.setDelimiter(";");
 			schemaExport.setOutputFile("db-schema.sql"); // nombre del archivo SQL a generar
-			// schemaExport.create(EnumSet.of(TargetType.DATABASE), metadata.buildMetadata()); // en caso de instruir a crear la base de datos desde esta instruccion
-			
+			// schemaExport.create(EnumSet.of(TargetType.DATABASE),
+			// metadata.buildMetadata()); // en caso de instruir a crear la base de datos
+			// desde esta instruccion
+
 			schemaExport.execute(EnumSet.of(TargetType.STDOUT), SchemaExport.Action.CREATE, metadata.buildMetadata());
 
 		} catch (HibernateError he) {
