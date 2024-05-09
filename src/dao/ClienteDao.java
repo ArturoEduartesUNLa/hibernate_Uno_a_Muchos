@@ -1,7 +1,9 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
@@ -99,6 +101,13 @@ public class ClienteDao {
 		try {
 			iniciaOperacion();
 			lista = session.createQuery("from Cliente c order by c.idCliente asc", Cliente.class).list();
+
+			// forma alternativa lista.forEach(t-> Hibernate.initialize(t.getPrestamos()));
+
+			for (Cliente c : lista) {
+				Hibernate.initialize(c.getPrestamos());
+			}
+
 		} finally {
 			session.close();
 		}

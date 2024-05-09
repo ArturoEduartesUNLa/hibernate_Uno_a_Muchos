@@ -2,6 +2,7 @@ package test.cliente;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -47,7 +48,7 @@ public class TestClienteAgregar {
 
 		Set<Prestamo> setP3 = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP3);
-		
+
 		Set<Prestamo> setP4 = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP4);
 
@@ -76,6 +77,12 @@ public class TestClienteAgregar {
 		System.out.println("UC 1_3 - traer cliente con Prestamos");
 		Cliente cWithp = ClienteABM.getInstance().traerClienteYPrestamo(2L);
 		System.out.println(cWithp + " " + cWithp.getPrestamos());
+
+		System.out.println("Listar todos los clientes y prestamos ->");
+		List<Cliente> listC = ClienteABM.getInstance().traer();
+
+		listC.forEach(t -> System.out.println(t + " " + t.getPrestamos()));
+
 	}
 
 	/* ------ Area de Auxiliary functions ------ */
