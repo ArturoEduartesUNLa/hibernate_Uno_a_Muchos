@@ -34,7 +34,7 @@ public class Cliente {
 		return idCliente;
 	}
 
-	protected void setIdCliente(long idCliente) {
+	private void setIdCliente(long idCliente) {
 		this.idCliente = idCliente;
 	}
 
