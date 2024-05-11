@@ -1,8 +1,11 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -98,6 +101,13 @@ public class ClienteDao {
 		try {
 			iniciaOperacion();
 			lista = session.createQuery("from Cliente c order by c.idCliente asc", Cliente.class).list();
+
+			// forma alternativa lista.forEach(t-> Hibernate.initialize(t.getPrestamos()));
+
+			for (Cliente c : lista) {
+				Hibernate.initialize(c.getPrestamos());
+			}
+
 		} finally {
 			session.close();
 		}
@@ -108,8 +118,9 @@ public class ClienteDao {
 		Cliente c = null;
 		try {
 			iniciaOperacion();
-			String hql = "from Cliente c inner join fetch c.contacto where c.IdCliente = :IdCliente";
-			c = session.createQuery(hql, Cliente.class).setParameter("idCliente", idCliente).uniqueResult();
+			String hql = "from Cliente c left join fetch c.prestamos p where c.idCliente = :IdCliente";
+			c = session.createQuery(hql, Cliente.class).setParameter("IdCliente", idCliente).uniqueResult();
+			// Hibernate.initialize(c.getPrestamos());
 
 		} finally {
 			session.close();

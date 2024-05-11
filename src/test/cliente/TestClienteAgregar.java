@@ -2,6 +2,7 @@ package test.cliente;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -20,8 +21,9 @@ public class TestClienteAgregar {
 
 		boolean printTest = printTest();
 
-		long id;
+		long id = 0;
 		/* sin Prestamos */
+
 		try {
 			System.out.println("UC 1_1 - agregar cliente sin Prestamo");
 
@@ -34,6 +36,7 @@ public class TestClienteAgregar {
 		}
 
 		/* con Prestamos */
+
 		Set<Prestamo> setP = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP);
 
@@ -46,13 +49,14 @@ public class TestClienteAgregar {
 		Set<Prestamo> setP3 = new HashSet<Prestamo>();
 		crearPrestamosPrueba(setP3);
 
+		Set<Prestamo> setP4 = new HashSet<Prestamo>();
+		crearPrestamosPrueba(setP4);
+
 		try {
 			System.out.println("UC 1_2 - agregar cliente con Prestamo");
-
 			id = ClienteABM.getInstance().agregar("Cliente 2", "Mark", 1234564, LocalDate.now(), false, setP);
-			Cliente clie = ClienteABM.getInstance().traer(id);
+			Cliente clie = ClienteABM.getInstance().traerClienteYPrestamo(id);
 			System.out.println(clie + " " + clie.getPrestamos()); // show output with associated prestamos
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,10 +67,21 @@ public class TestClienteAgregar {
 			System.out.println(ClienteABM.getInstance().traer(
 					ClienteABM.getInstance().agregar("Cliente 4", "Mark", 12345649, LocalDate.now(), false, setP2)));
 			System.out.println(ClienteABM.getInstance().traer(
-					ClienteABM.getInstance().agregar("Cliente 5", "Mark", 12345658, LocalDate.now(), false, setP3)));
+					ClienteABM.getInstance().agregar("Cliente 5", "Mark", 12345650, LocalDate.now(), false, setP3)));
+			System.out.println(ClienteABM.getInstance().traer(
+					ClienteABM.getInstance().agregar("Cliente 6", "Mark", 12345651, LocalDate.now(), false, setP4)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		System.out.println("UC 1_3 - traer cliente con Prestamos");
+		Cliente cWithp = ClienteABM.getInstance().traerClienteYPrestamo(2L);
+		System.out.println(cWithp + " " + cWithp.getPrestamos());
+
+		System.out.println("Listar todos los clientes y prestamos ->");
+		List<Cliente> listC = ClienteABM.getInstance().traer();
+
+		listC.forEach(t -> System.out.println(t + " " + t.getPrestamos()));
 
 	}
 

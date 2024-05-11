@@ -46,4 +46,8 @@ public class PrestamoABM {
 
 		dao.eliminar(p);
 	}
+
+	public List<Prestamo> traer() {
+		return dao.traer();
+	}
 }

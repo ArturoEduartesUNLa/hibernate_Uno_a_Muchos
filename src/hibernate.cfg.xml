@@ -25,5 +25,6 @@
 		<!-- Mapeo Entidades -->
 		<mapping resource="mapeo/cliente.hbm.xml"/>
 		<mapping resource="mapeo/prestamo.hbm.xml"/>
+		
 	</session-factory>
 </hibernate-configuration>

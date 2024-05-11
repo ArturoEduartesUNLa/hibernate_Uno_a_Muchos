@@ -34,7 +34,7 @@ public class Cliente {
 		return idCliente;
 	}
 
-	protected void setIdCliente(long idCliente) {
+	private void setIdCliente(long idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -84,10 +84,6 @@ public class Cliente {
 
 	public void setPrestamos(Set<Prestamo> prestamos) {
 		// forma alternativa prestamos.forEach(prestamo -> prestamo.setCliente(this));
-
-		if (prestamos != null)
-			prestamos.forEach(t -> t.setCliente(this));
-
 		this.prestamos = prestamos;
 	}
 

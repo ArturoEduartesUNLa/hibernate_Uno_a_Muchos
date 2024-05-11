@@ -16,13 +16,13 @@ public class TestClienteEliminar {
 
 		boolean printTest = printTest();
 		Cliente modif = null;
-		
+
 		// Eliminar Cliente sin prestamos
 		System.out.println("UC 3_1 - eliminar Cliente sin Prestamos");
 
 		try {
 			modif = ClienteABM.getInstance().traer(1L);
-			System.out.println(modif + " " + modif.getPrestamos());
+			System.out.println(modif);
 			ClienteABM.getInstance().eliminar(1L);
 		} catch (Exception e) {
 			System.err.println("Ejecutar TestClienteInt para previamente crear registros en DB");
@@ -35,7 +35,7 @@ public class TestClienteEliminar {
 		 * modificador not-null
 		 */
 		System.out.println("UC 3_2 - eliminar asociacion Cliente con prestamos (set cliente with null in prestamos)");
-		modif = ClienteABM.getInstance().traer(3L);
+		modif = ClienteABM.getInstance().traerClienteYPrestamo(3L);
 		System.out.println(modif + " " + modif.getPrestamos());
 		try {
 			modif.getPrestamos().forEach(p -> p.setCliente(null));
@@ -49,7 +49,10 @@ public class TestClienteEliminar {
 		 * Eliminar Cliente y prestamos de forma directa al eliminar un cliente
 		 * modificador on-delete=cascade en mapeo del atributo del tipo SET en Cliente
 		 */
+		System.out.println("UC 3_3 - eliminar Cliente y prestamos de forma directa al eliminar un cliente\n"
+				+ "		   modificador en mapeo cliente con on-delete=cascade");
 		try {
+			System.out.println(modif);
 			ClienteABM.getInstance().eliminar(modif.getIdCliente());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -61,21 +64,21 @@ public class TestClienteEliminar {
 		}
 
 		// Eliminar prestamos asociados al cliente
-		System.out.println("UC 3_3 - eliminar prestamos asociados a Cliente");
-		modif = ClienteABM.getInstance().traer(2L);
+		System.out.println("UC 3_4 - eliminar prestamos asociados a Cliente");
+		modif = ClienteABM.getInstance().traerClienteYPrestamo(6L);
 		System.out.println(modif + " " + modif.getPrestamos());
 		try {
-			ClienteABM.getInstance().eliminarPrestamosAsociados(2L);
-			modif = ClienteABM.getInstance().traer(2L);
+			ClienteABM.getInstance().eliminarPrestamosAsociados(6L);
+			modif = ClienteABM.getInstance().traerClienteYPrestamo(6L);
 			System.out.println(modif + " " + modif.getPrestamos());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		// Eliminar Cliente Y prestamos asociados
-		System.out.println("UC 3_4 - eliminar Cliente junto con sus prestamos");
+		System.out.println("UC 3_5 - eliminar Cliente junto con sus prestamos");
 
-		modif = ClienteABM.getInstance().traer(4L);
+		modif = ClienteABM.getInstance().traerClienteYPrestamo(4L);
 
 		if (!printTest)
 			System.out.println(modif + " " + modif.getPrestamos());

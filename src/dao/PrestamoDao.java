@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -108,6 +109,23 @@ public class PrestamoDao {
 			iniciaOperacion();
 			String hql = "from Prestamo p inner join fetch p.cliente c where c.idCliente = :IDCliente";
 			lista = session.createQuery(hql, Prestamo.class).setParameter("IDCliente", c.getIdCliente()).list();
+		} finally {
+			session.close();
+		}
+		return lista;
+	}
+
+	public List<Prestamo> traer() {
+		List<Prestamo> lista;
+		try {
+			String hql = "from Prestamo p order by p.idPrestamo asc";
+			iniciaOperacion();
+			lista = session.createQuery(hql, Prestamo.class).list();
+
+			for (Prestamo prestamo : lista) {
+				Hibernate.initialize(prestamo.getCliente());
+			}
+
 		} finally {
 			session.close();
 		}

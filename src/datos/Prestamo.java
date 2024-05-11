@@ -11,6 +11,7 @@ public class Prestamo {
 	private double interes;
 	private int cantCuotas;
 	private Cliente cliente;
+	private boolean cancelado; 
 	UUID uuid;
 
 	public Prestamo(LocalDate fecha, double monto, double interes, int cantCuotas, Cliente cliente) {
@@ -27,14 +28,24 @@ public class Prestamo {
 		super();
 	}
 
+	public boolean isCancelado() {
+		return cancelado;
+	}
+
+	public void setCancelado(boolean cancelado) {
+		this.cancelado = cancelado;
+	}
+
+	
+
 	public long getIdPrestamo() {
 		return idPrestamo;
 	}
 
-	protected void setIdPrestamo(long idPrestamo) {
+	private void setIdPrestamo(long idPrestamo) {
 		this.idPrestamo = idPrestamo;
 	}
-
+	
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -77,7 +88,6 @@ public class Prestamo {
 
 	@Override
 	public int hashCode() {
-
 		return Objects.hash(cantCuotas, fecha, uuid, idPrestamo, interes, monto);
 	}
 
